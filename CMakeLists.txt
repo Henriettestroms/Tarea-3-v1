@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.14)
+
+project(Tarea3Etapa1 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
+add_executable(${PROJECT_NAME}
+    cpp/Stage1/src/Stage1.cpp
+    cpp/src/Broker.cpp
+    cpp/src/VideoPublisher.cpp
+    cpp/src/VideoFollower.cpp
+    cpp/src/Component.cpp
+    cpp/src/Publisher.cpp
+    cpp/src/Subscriber.cpp
+    cpp/src/Topic.cpp
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    cpp/
+    cpp/include
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
+
