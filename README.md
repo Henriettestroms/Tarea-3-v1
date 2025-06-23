@@ -140,6 +140,8 @@ El desarrollo debe ser **iterativo e incremental**, entregando una solución fun
 📤 Entregar:
 - Clases implementadas.
 - Archivo de entrada usado.
+  En este repositorio se incluye un archivo de ejemplo llamado `gps_example.txt`
+  con posiciones para probar el publicador de esta etapa.
 
 ---
 
