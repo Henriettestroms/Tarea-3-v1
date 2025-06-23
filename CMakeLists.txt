@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(Tarea3Etapa1 LANGUAGES CXX)
+project(Tarea3Etapa3 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -8,8 +8,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia MultimediaWidgets)
 
 add_executable(${PROJECT_NAME}
-    cpp/Stage1/src/Stage1.cpp
+    cpp/Stage3/src/Stage3.cpp
     cpp/src/Broker.cpp
+    cpp/src/GPSCarPublisher.cpp
+    cpp/src/GPSCarSubscriber.cpp
     cpp/src/VideoPublisher.cpp
     cpp/src/VideoFollower.cpp
     cpp/src/Component.cpp
