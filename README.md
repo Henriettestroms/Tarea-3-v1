@@ -192,3 +192,4 @@ Se implementan **todas las funcionalidades** descritas en las secciones 2 y 3:
 - [Henriette Stromsvaag]
 - Universidad Técnica Federico Santa María (UTFSM)  
 - Curso: ELO329
+Para más detalles revise el documento docs/documentacion.md.
