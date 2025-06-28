@@ -2,26 +2,28 @@
 #define GPSCARPUBLISHER_H
 
 #include "Publisher.h"
+#include <QObject>
 #include <QWidget>
-#include <vector>
+#include <QVector>
+#include <QPointF>
 
-class QLabel;
+class QPushButton;
 class QTimer;
-class GPSCarPublisher : public Publisher {
+
+class GPSCarPublisher : public QObject, public Publisher {
+    Q_OBJECT
 public:
     GPSCarPublisher(const std::string& name, Broker& broker, const std::string& topicName);
     QWidget* getView();
 
-private:
-    struct Position { double time; double x; double y; };
-    Position interpolate(const std::vector<Position>& pts, double t);
-    void loadFile(const QString& fileName);
-    void startEmitting();
+private slots:
+    void start();
 
+private:
     QWidget* view{nullptr};
-    QLabel* fileLabel{nullptr};
-    std::vector<Position> points;
+    QPushButton* startButton{nullptr};
     QTimer* timer{nullptr};
+    QVector<QPointF> points;
     int index{0};
 };
 

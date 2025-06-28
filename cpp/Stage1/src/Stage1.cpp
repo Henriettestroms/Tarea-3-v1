@@ -5,11 +5,12 @@
 #include <QInputDialog>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QScrollArea>
 #include <QWidget>
 #include "Broker.h"
 #include "VideoPublisher.h"
 #include "VideoFollower.h"
+#include "GPSCarPublisher.h"
+#include "GPSFollower.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +21,9 @@ int main(int argc, char *argv[])
     QMenu* menuPublisher = menuBar->addMenu("Publisher");
     QMenu* menuSubscriber = menuBar->addMenu("Subscriber");
     QAction* menuItemVideoPub = menuPublisher->addAction("Video");
+    QAction* menuItemGPSPub = menuPublisher->addAction("GPS");
     QAction* menuItemVideoSubs = menuSubscriber->addAction("Video");
+    QAction* menuItemGPSSubs = menuSubscriber->addAction("GPS");
 
     QHBoxLayout* mainLayout = new QHBoxLayout;
     QVBoxLayout* left = new QVBoxLayout;
@@ -41,10 +44,25 @@ int main(int argc, char *argv[])
         left->addWidget(pub->getView());
     });
 
+        QObject::connect(menuItemGPSPub, &QAction::triggered, [&](){
+        QString name = QInputDialog::getText(&window, "GPS Publisher Name", "GPS Publisher Name:");
+        QString topic = QInputDialog::getText(&window, "GPS Publisher Topic", "GPS Publisher Topic:");
+        auto* pub = new GPSCarPublisher(name.toStdString(), broker, topic.toStdString());
+        left->addWidget(pub->getView());
+    });
+
     QObject::connect(menuItemVideoSubs, &QAction::triggered, [&](){
         QString name = QInputDialog::getText(&window, "Video Subscriber Name", "Video Subscriber Name:");
         QString topic = QInputDialog::getText(&window, "Video Subscriber Topic", "Video Subscriber Topic:");
         auto* sub = new VideoFollower(name.toStdString(), topic.toStdString());
+        if(broker.subscribe(sub))
+            right->addWidget(sub->getView());
+    });
+
+        QObject::connect(menuItemGPSSubs, &QAction::triggered, [&](){
+        QString name = QInputDialog::getText(&window, "GPS Subscriber Name", "GPS Subscriber Name:");
+        QString topic = QInputDialog::getText(&window, "GPS Subscriber Topic", "GPS Subscriber Topic:");
+        auto* sub = new GPSFollower(name.toStdString(), topic.toStdString());
         if(broker.subscribe(sub))
             right->addWidget(sub->getView());
     });

@@ -13,6 +13,6 @@ public:
 private:
     QWidget* view{nullptr};
     QPushButton* video{nullptr};
-    QString lastUrl; 
+    QString lastUrl;
 };
 #endif
