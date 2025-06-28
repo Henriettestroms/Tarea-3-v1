@@ -8,24 +8,27 @@ GPSCarSubscriber::GPSCarSubscriber(const std::string& name, const std::string& t
 {
     view = new QWidget;
     auto* layout = new QVBoxLayout(view);
-    timeLabel = new QLabel("t: 0");
-    xLabel = new QLabel("x: 0");
-    yLabel = new QLabel("y: 0");
+    layout->addWidget(new QLabel(QString::fromStdString(name)));
+    timeLabel = new QLabel("t=0");
+    xLabel = new QLabel("x=0");
+    yLabel = new QLabel("y=0");
     layout->addWidget(timeLabel);
     layout->addWidget(xLabel);
     layout->addWidget(yLabel);
 }
 
-void GPSCarSubscriber::update(const std::string& message){
-    QString msg = QString::fromStdString(message);
-    auto parts = msg.split(' ', Qt::SkipEmptyParts);
-    if(parts.size() == 3){
-        timeLabel->setText(QString("t: %1").arg(parts[0]));
-        xLabel->setText(QString("x: %1").arg(parts[1]));
-        yLabel->setText(QString("y: %1").arg(parts[2]));
-    }
+void GPSCarSubscriber::update(const std::string& message)
+{
+    std::istringstream iss(message);
+    double t,x,y;
+    if(!(iss >> t >> x >> y))
+        return;
+    timeLabel->setText(QString("t=%1").arg(t));
+    xLabel->setText(QString("x=%1").arg(x));
+    yLabel->setText(QString("y=%1").arg(y));
 }
 
-QWidget* GPSCarSubscriber::getView(){
+QWidget* GPSCarSubscriber::getView()
+{
     return view;
 }

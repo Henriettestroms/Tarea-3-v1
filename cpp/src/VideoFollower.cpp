@@ -29,7 +29,7 @@ VideoFollower::VideoFollower(const std::string& name, const std::string& topicNa
 }
 
 void VideoFollower::update(const std::string& message){
-        lastUrl = QString::fromStdString(message);
+    lastUrl = QString::fromStdString(message);
     video->setText(lastUrl);
 }
 
