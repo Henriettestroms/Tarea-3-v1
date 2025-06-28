@@ -33,6 +33,12 @@ cmake --build .
 Al abrir `CMakeLists.txt` con **QtCreator** también es posible compilar y
 ejecutar la aplicación.
 
+### Archivos ignorados
+
+El archivo `.gitignore` de este repositorio excluye directorios de compilación
+(`build/`), configuraciones de IDE (`.vscode/`) y ficheros generados por
+CMake o Qt. Estos archivos no deben subirse al repositorio.
+
 El simulador permite crear:
 - Un publicador de **URLs de videos**
 - Un publicador de **posiciones GPS de un automóvil**
