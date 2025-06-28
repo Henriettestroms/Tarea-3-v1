@@ -25,8 +25,9 @@ ejecutar lo siguiente desde la raíz del repositorio:
 ```bash
 mkdir build
 cd build
-cmake ..
-make
+cmake .. -G "MinGW Makefiles"
+cmake --build .
+"y luego ejecuta" .\Tarea3Etapa4.exe "desde la carpeta build"
 ```
 
 Al abrir `CMakeLists.txt` con **QtCreator** también es posible compilar y
