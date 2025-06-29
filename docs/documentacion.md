@@ -5,15 +5,18 @@ Este documento resume los elementos principales del simulador gráfico de dispos
 ## Diagrama UML
 
 ```text
-+----------------+     +----------------+
-|   Publisher    |<>---|    Subscriber  |
-+----------------+     +----------------+
-        ^                    ^
-        |                    |
-+---------------+   +------------------+
-| VideoPublisher|   |   VideoFollower  |
-+---------------+   +------------------+
-                    | -volumeSlider |
++-------------+        +--------------+
+|  Publisher  |<>------|  Subscriber  |
++-------------+        +--------------+
+      ^                     ^
+      |                     |
++---------------+        +------------------+
+|VideoPublisher |        |  VideoFollower   |
++---------------+        +------------------+
+                             | -volumeSlider |
++---------------+        +------------------+
+|GPSCarPublisher|        |GPSCarSubscriber |
++---------------+        +------------------+
 ```
 
 ## Explicación de la Solución
@@ -21,6 +24,8 @@ Este documento resume los elementos principales del simulador gráfico de dispos
 El programa implementa el patrón *Publisher–Subscriber*. Un `Broker` central administra la suscripción de objetos `Subscriber` a distintos `Topic`. Los publicadores envían mensajes mediante el `Broker` y los suscriptores reaccionan actualizando su interfaz gráfica.
 
 La clase `VideoPublisher` permite ingresar una URL de video y notifica a todos los seguidores (`VideoFollower`). Estos actualizan un botón con el último enlace recibido y, al presionarlo, muestran el video.
+
+De forma análoga, `GPSCarPublisher` lee un archivo de coordenadas y publica cada posición. Los objetos `GPSCarSubscriber` muestran en una ventana el tiempo y los valores de (x,y) recibidos.
 
 ## Dificultades y Soluciones
 

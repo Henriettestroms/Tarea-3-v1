@@ -9,19 +9,24 @@
 <p>Este documento resume los elementos principales del simulador gráfico de dispositivos domóticos desarrollado en C++ con Qt. Aporta un diagrama de clases simplificado, una breve explicación de la solución y las dificultades enfrentadas.</p>
 <h2>Diagrama UML</h2>
 <pre>
-+----------------+     +----------------+
-|   Publisher    |<>---|    Subscriber  |
-+----------------+     +----------------+
-        ^                    ^
-        |                    |
-+---------------+   +------------------+
-| VideoPublisher|   |   VideoFollower  |
-+---------------+   +------------------+
-                    | -volumeSlider |
++-------------+        +--------------+
+|  Publisher  |<>------|  Subscriber  |
++-------------+        +--------------+
+      ^                     ^
+      |                     |
++---------------+        +------------------+
+|VideoPublisher |        |  VideoFollower   |
++---------------+        +------------------+
+                             | -volumeSlider |
++---------------+        +------------------+
+|GPSCarPublisher|        |GPSCarSubscriber |
++---------------+        +------------------+
 </pre>
 <h2>Explicación de la Solución</h2>
 <p>El programa implementa el patrón <em>Publisher–Subscriber</em>. Un <code>Broker</code> central administra la suscripción de objetos <code>Subscriber</code> a distintos <code>Topic</code>. Los publicadores envían mensajes mediante el <code>Broker</code> y los suscriptores reaccionan actualizando su interfaz gráfica.</p>
 <p>La clase <code>VideoPublisher</code> permite ingresar una URL de video y notifica a todos los seguidores (<code>VideoFollower</code>). Estos actualizan un botón con el último enlace recibido y, al presionarlo, muestran el video.</p>
+
+<p>De forma análoga, <code>GPSCarPublisher</code> lee un archivo de coordenadas y publica cada posición. Los objetos <code>GPSCarSubscriber</code> muestran en una ventana el tiempo y los valores de (x,y) recibidos.</p>
 <h2>Dificultades y Soluciones</h2>
 <ol>
 <li><strong>Integración con Qt:</strong> configurar CMake para enlazar correctamente con <code>Qt6::MultimediaWidgets</code> requirió revisar ejemplos oficiales.</li>
